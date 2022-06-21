@@ -1,5 +1,5 @@
-import { City } from '../City';
-import { ViewInWindow } from '../ViewInWindow';
+import { City } from '../city';
+import { ViewInWindow } from '../view-in-window';
 
 export type Apartment = {
   id: string;

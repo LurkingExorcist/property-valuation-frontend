@@ -2,12 +2,11 @@ import { Endpoint } from '@rest-hooks/rest';
 import * as _ from 'lodash';
 import { useDLE } from 'rest-hooks';
 
-import { Apartment, User } from '@/domain';
+import { Apartment, User, ApartmentService } from '@/domain';
 
 import { AppLayout } from '@/layout/app-layout';
 
 import { ApartmentsTable, Card } from '@/components';
-import ApartmentService from '@/domain/apartment/ApartmentService';
 
 export function ApartmentsPage() {
   const { data, error, loading } = useDLE(

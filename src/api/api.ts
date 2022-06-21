@@ -1,6 +1,7 @@
 import axios from 'axios';
+import * as _ from 'lodash';
 
-import { API_URL } from '@/config';
+import { API_URL, TOKEN } from '@/config';
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -9,3 +10,22 @@ export const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+api.interceptors.request.use(
+  async (config) => {
+    if (!config.headers) {
+      config.headers = {};
+    }
+
+    const token = localStorage.getItem(TOKEN);
+
+    if (!_.isNil(token)) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);

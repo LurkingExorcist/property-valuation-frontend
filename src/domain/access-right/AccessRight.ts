@@ -1,8 +1,7 @@
 import { Resource } from '@rest-hooks/rest';
 import * as uuid from 'uuid';
 
-import AccessType from './types/AccessType';
-import AppSection from './types/AppSection';
+import { AccessType, AppSection } from './types';
 
 export class AccessRight extends Resource {
   id: string = uuid.v4();

@@ -1,7 +1,7 @@
 import { Resource, schema } from '@rest-hooks/rest';
 import * as uuid from 'uuid';
 
-import { AccessRight } from './AccessRight';
+import { AccessRight } from '../access-right';
 
 export class User extends Resource {
   id: string = uuid.v4();

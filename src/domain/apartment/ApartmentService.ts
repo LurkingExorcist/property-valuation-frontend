@@ -6,7 +6,7 @@ import { api, URLS } from '@/api';
 
 import { Apartment } from './Apartment';
 
-export default class ApartmentService {
+export class ApartmentService {
   static async loadApartments(query?: Partial<Apartment>) {
     const data = await api
       .get<Apartment[]>(

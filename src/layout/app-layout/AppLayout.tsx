@@ -2,7 +2,7 @@ import './app-layout.scss';
 
 import { PropsWithChildren } from 'react';
 
-import { User } from '@/domain/User';
+import { User } from '@/domain';
 
 import { Navbar } from './navbar';
 import { Sidebar } from './sidebar';
