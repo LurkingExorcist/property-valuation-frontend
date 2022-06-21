@@ -1,0 +1,66 @@
+.route-node {
+  position: relative;
+  
+  &__parent {
+    display: flex;
+    width: $sidebar-width;
+  }
+
+  &__title-group {
+    display: flex;
+    align-items: center;
+    
+    font-weight: 400;
+    font-size: 16px;
+    text-decoration: none;
+
+    color: #A4A6B3;
+    padding-left: 24px;
+
+    width: 100%;
+    height: 52px;
+
+    &.active {
+      background: rgba(159, 162, 180, 0.16);
+      border-left: 4px solid #d7d7d7;
+    }
+  }
+
+  &__parent-icon {
+    display: flex;
+    margin-right: 12px;
+  }
+
+  &__parent-title {
+    color: inherit;
+    font-size: inherit;
+  }
+
+  &__expand-btn {
+    position: absolute;
+    right: 0;
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+
+    height: 100%;
+    height: 52px;
+
+    .route-node__expand-icon {
+      transition: 0.3s;
+    }
+
+    &--expanded {
+      .route-node__expand-icon {
+        transform: rotateZ(180deg);
+      }
+    }
+  }
+
+  &__children {
+    margin-left: 24px;
+  }
+}

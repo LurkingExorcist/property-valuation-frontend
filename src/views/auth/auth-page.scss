@@ -1,0 +1,33 @@
+.auth-page {
+  &__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  &__logo-icon {
+    width: 48px;
+    height: 48px;
+    margin-right: 12px;
+  }
+
+  &__logo-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #010416;
+
+    width: 200px;
+  }
+
+  &__title {
+    font-size: 32px;
+    color: #010416;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  &__input:not(:last-child) {
+    margin-bottom: 24px;
+  }
+}

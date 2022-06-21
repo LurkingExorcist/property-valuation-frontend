@@ -1,0 +1,40 @@
+
+.app-layout {
+  min-width: 320px;
+  max-width: 100%;
+  min-height: 100vh;
+
+  &__wrapper {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 100vh;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-grow: 1;
+
+    background-color: #F7F8FC;
+
+    height: 100vh;
+    width: calc(100vw - #{$sidebar-width});
+    min-width: 1200px - $sidebar-width;
+
+    &--expanded {
+      width: calc(100vw - #{$sidebar-closed-width});
+    }
+  }
+
+  &__page-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 24px;
+    height: calc(100% - #{$header-height});
+    overflow: auto;
+  }
+}
