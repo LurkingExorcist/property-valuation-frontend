@@ -1,3 +1,5 @@
+$active-color: rgb(159, 162, 180);
+
 .route-node {
   position: relative;
   
@@ -21,8 +23,12 @@
     height: 52px;
 
     &.active {
-      background: rgba(159, 162, 180, 0.16);
+      background: rgba($active-color, 0.16);
       border-left: 4px solid #d7d7d7;
+    }
+
+    &:hover {
+      background: rgba($active-color, 0.05);
     }
   }
 

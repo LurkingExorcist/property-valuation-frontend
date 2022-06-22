@@ -1,6 +1,7 @@
 import './auth-page.scss';
 
-import { Button, TextField } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { Alert, Snackbar, TextField } from '@mui/material';
 import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +12,7 @@ import { UserService } from '@/domain';
 
 import logo from '@/assets/images/logo.svg';
 
+import { useAPI } from '@/hooks/useAPI';
 import { AuthLayout } from '@/layout';
 import { AppDispatch } from '@/store';
 import { authSlice } from '@/store/slices/auth-slice';
@@ -29,6 +31,13 @@ export function AuthenticationPage() {
     password: '',
   });
 
+  const {
+    callAPI: signin,
+    resetState,
+    isPending,
+    error,
+  } = useAPI(() => UserService.signin(form));
+
   const handleChange =
     (prop: keyof Form) => (event: React.ChangeEvent<HTMLInputElement>) => {
       setForm({ ...form, [prop]: event.target.value });
@@ -37,8 +46,8 @@ export function AuthenticationPage() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    await UserService.signin(form).then(({ token }) =>
-      dispatch(authSlice.actions.setToken(token))
+    await signin().then(
+      (res) => res && dispatch(authSlice.actions.setToken(res.token))
     );
 
     navigate(ROUTE_NAMES.APARTMENTS);
@@ -46,6 +55,11 @@ export function AuthenticationPage() {
 
   return (
     <AuthLayout className="auth-page">
+      <Snackbar open={!!error} autoHideDuration={6000} onClose={resetState}>
+        <Alert onClose={resetState} severity="error" sx={{ width: '100%' }}>
+          {error && error.message}
+        </Alert>
+      </Snackbar>
       <div className="auth-page__logo">
         <img className="auth-page__logo-icon" src={logo} />
         <div className="auth-page__logo-title">
@@ -69,14 +83,15 @@ export function AuthenticationPage() {
           type="password"
           onChange={handleChange('password')}
         />
-        <Button
+        <LoadingButton
           className="auth-page__submit"
           variant="contained"
           size="large"
           type="submit"
+          loading={isPending}
         >
           Войти
-        </Button>
+        </LoadingButton>
       </form>
     </AuthLayout>
   );

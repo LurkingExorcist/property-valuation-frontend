@@ -12,11 +12,10 @@ export default vite.defineConfig({
     react(),
     html.createHtmlPlugin({
       minify: true,
-      entry: 'src/main.tsx',
-      template: 'public/index.html',
+      entry: path.resolve(__dirname, 'src/main.ts'),
       inject: {
         data: {
-          title: 'Оценка стоимости квартир',
+          title: 'Модели оценки стоимости квартир',
         },
       },
     }),
@@ -41,5 +40,5 @@ export default vite.defineConfig({
         additionalData: '@import "./src/assets/style/varibles.scss"; ',
       },
     },
-  },
+  }
 });

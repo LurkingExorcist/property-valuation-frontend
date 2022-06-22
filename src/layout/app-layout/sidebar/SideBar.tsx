@@ -4,7 +4,11 @@ import clsx from 'clsx';
 
 import { ROUTE_NAMES } from '@/config';
 
+import addressBookIcon from '@/assets/icons/address-book-icon.svg';
+import eyeIcon from '@/assets/icons/eye-icon.svg';
 import houseIcon from '@/assets/icons/house-icon.svg';
+import mapPinIcon from '@/assets/icons/map-pin-icon.svg';
+import mathIcon from '@/assets/icons/math-icon.svg';
 import logo from '@/assets/images/logo.svg';
 
 import { CNProps } from '@/types';
@@ -29,23 +33,23 @@ export function Sidebar(props: ISidebarProps) {
           path={ROUTE_NAMES.APARTMENTS}
         >
           <RouteNode
-            icon={<img src={houseIcon} />}
+            icon={<img src={mapPinIcon} />}
             title="Города"
             path={ROUTE_NAMES.CITIES}
           />
           <RouteNode
-            icon={<img src={houseIcon} />}
+            icon={<img src={eyeIcon} />}
             title="Виды из окна"
             path={ROUTE_NAMES.VIEWS_IN_WINDOW}
           />
         </RouteNode>
         <RouteNode
-          icon={<img src={houseIcon} />}
+          icon={<img src={addressBookIcon} />}
           title="Пользователи"
           path={ROUTE_NAMES.USERS}
         />
         <RouteNode
-          icon={<img src={houseIcon} />}
+          icon={<img src={mathIcon} />}
           title="Мат. модели"
           path={ROUTE_NAMES.MATH_MODELS}
         />

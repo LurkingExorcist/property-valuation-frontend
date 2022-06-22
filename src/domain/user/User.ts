@@ -1,20 +1,9 @@
-import { Resource, schema } from '@rest-hooks/rest';
-import * as uuid from 'uuid';
-
 import { AccessRight } from '../access-right';
 
-export class User extends Resource {
-  id: string = uuid.v4();
-  username = '';
-  email = '';
-  phoneNumber = '';
-  accessRights: AccessRight[] = [];
-
-  static schema = new schema.Object({
-    accessRights: new schema.Array(AccessRight),
-  });
-
-  pk() {
-    return this.id;
-  }
-}
+export type User = {
+  id: string;
+  username: string;
+  email: string;
+  phoneNumber: string;
+  accessRights: AccessRight[];
+};

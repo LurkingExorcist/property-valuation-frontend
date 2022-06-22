@@ -14,8 +14,8 @@ export class Star {
   x: number;
   y: number;
   angle: number = 2 * Math.PI * Math.random();
-  relates = 0;
   angleSpeed = _.random(128, 512);
+  speed = 1;
   angleIteration = _.random(128, 512);
 
   constructor(x: number, y: number) {
@@ -28,7 +28,7 @@ export class Star {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
     ctx.beginPath();
     ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
     ctx.fill();
@@ -37,11 +37,11 @@ export class Star {
   move(resolution: Resolution) {
     const k = Math.sin(this.angleIteration / this.angleSpeed);
 
-    this.x += DELTA_RADIUS * Math.cos(this.angle * k);
+    this.x += DELTA_RADIUS * Math.cos(this.angle * k) * this.speed;
     if (this.x < 0) this.x = resolution.width + this.x;
     if (this.x > resolution.width) this.x = this.x - resolution.width;
 
-    this.y += DELTA_RADIUS * Math.sin(this.angle * k);
+    this.y += DELTA_RADIUS * Math.sin(this.angle * k) * this.speed;
     if (this.y < 0) this.y = resolution.height + this.y;
     if (this.y > resolution.height) this.y = this.y - resolution.height;
   }
@@ -66,7 +66,7 @@ export class StarsController {
     this.starsCount = Math.floor(
       pow(pow(width, 2) + pow(height, 2), 1 / 2) / 4
     );
-    this.maxDistanse = pow(pow(width, 2) + pow(height, 2), 1 / 2) / 32;
+    this.maxDistanse = pow(pow(width, 2) + pow(height, 2), 1 / 2) / 24;
   }
 
   getResolution(): Resolution {
@@ -108,9 +108,8 @@ export class StarsController {
       for (let j = 0; j < this.starsCount; j++) {
         const distance = getHipothenuse(this.stars[i], this.stars[j]);
         if (distance < this.maxDistanse) {
-          this.stars[i].relates++;
-          this.stars[j].relates++;
-
+          this.stars[i].speed = 1 + (1 - distance / this.maxDistanse) * 2;
+          this.stars[j].speed = 1 + (1 - distance / this.maxDistanse) * 2;
           this.drawStarsPath(this.stars[i], this.stars[j], distance);
         }
       }
@@ -120,16 +119,12 @@ export class StarsController {
       this.stars[i].move(this.getResolution());
     }
 
-    for (let i = 0; i < this.starsCount; i++) {
-      this.stars[i].relates = 0;
-    }
-
     requestAnimationFrame(this.moveStars.bind(this));
   }
 
   private drawStarsPath(star1: Star, star2: Star, distance: number) {
     this.ctx.strokeStyle = `rgba(255, 255, 255, ${
-      (this.maxDistanse - distance) / this.maxDistanse
+      (this.maxDistanse - distance) / this.maxDistanse / 2
     })`;
 
     this.ctx.beginPath();
