@@ -67,6 +67,7 @@ export function ApartmentsPage() {
     data: apartmens,
     pageIndex,
     pageSize,
+    setWhere,
     setSort,
     setPageIndex,
     setPageSize,
@@ -136,7 +137,14 @@ export function ApartmentsPage() {
           onSortModelChange={(sort) => setSort(sort)}
           onPageChange={(newPage) => setPageIndex(newPage)}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          onFilterModelChange={(filter) => console.log(filter)}
+          onFilterModelChange={(filter) =>
+            setWhere({
+              [filter.items[0].columnField]: [
+                filter.items[0].operatorValue,
+                filter.items[0].value,
+              ],
+            })
+          }
           loading={apartmentsIsPending}
           checkboxSelection
           disableSelectionOnClick

@@ -5,8 +5,22 @@ export interface CNProps {
   className?: ClassValue;
 }
 
+export enum FilterOperation {
+  CONTAINS = 'contains',
+  EQUALS = 'equals',
+  STARTS_WITH = 'startsWith',
+  ENDS_WITH = 'endsWith',
+  IS_EMPTY = 'isEmpty',
+  IS_NOT_EMPTY = 'isNotEmpty',
+  IS_ANY_OF = 'isAnyOf',
+}
+
+export type Where<T> = Partial<
+  Record<keyof T, [FilterOperation, string | string[]]>
+>;
+
 export type FindQuery<T> = {
-  where?: Record<keyof T, any> | Record<keyof T, any>[];
+  where?: Where<T>;
   sort?: GridSortModel;
   pageSize?: number;
   pageIndex?: number;
