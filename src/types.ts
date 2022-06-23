@@ -1,5 +1,7 @@
+import { SxProps } from '@mui/material';
 import { GridSortModel } from '@mui/x-data-grid';
 import { ClassValue } from 'clsx';
+import * as React from 'react';
 
 export interface CNProps {
   className?: ClassValue;
@@ -29,4 +31,20 @@ export type FindQuery<T> = {
 export type PaginatedData<T> = {
   content: T[];
   total: number;
+};
+
+export type Notification = {
+  title: string;
+};
+
+export type NotificationsController = {
+  push: (notification: Notification) => void;
+};
+
+export type ModalOptions = {
+  style?: SxProps;
+};
+
+export type ModalsController = {
+  show: (component: React.ReactNode, options: ModalOptions) => void;
 };

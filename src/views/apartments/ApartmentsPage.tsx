@@ -1,20 +1,36 @@
 import './apartments-page.scss';
 
-import { Alert, Checkbox, Paper, Snackbar } from '@mui/material';
-import { DataGrid, GridColDef, ruRU } from '@mui/x-data-grid';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import {
+  Checkbox,
+  Paper,
+  SpeedDial,
+  SpeedDialAction,
+  SpeedDialIcon,
+} from '@mui/material';
+import {
+  DataGrid,
+  GridColDef,
+  GridSelectionModel,
+  ruRU,
+} from '@mui/x-data-grid';
 import * as _ from 'lodash';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Apartment, ApartmentService, ViewInWindowService } from '@/domain';
 
+import { ApartmentCreateModal } from '@/components/apartments/ApartmentCreateModal';
+
 import { AppLayout } from '@/layout/app-layout';
 
-import { usePaginatedAPI, useAPI } from '@/hooks';
-import { Utils } from '@/lib';
+import { usePaginatedAPI, useAPI, useNotifications, useModals } from '@/hooks';
+import { ApiError, Utils } from '@/lib';
 
 const STATIC_COLUMNS: GridColDef<Apartment>[] = [
   {
-    field: 'city',
+    field: 'city.name',
     headerName: 'Город',
     width: 150,
     valueGetter: ({ row }) => row.city.name,
@@ -27,12 +43,12 @@ const STATIC_COLUMNS: GridColDef<Apartment>[] = [
   {
     field: 'totalArea',
     headerName: 'Общая площадь',
-    valueGetter: ({ row }) => row.totalArea,
+    valueGetter: ({ row }) => row.totalArea + ' м²',
   },
   {
     field: 'kitchenArea',
     headerName: 'Кухонная площадь',
-    valueGetter: ({ row }) => row.kitchenArea,
+    valueGetter: ({ row }) => row.kitchenArea + ' м²',
   },
   {
     field: 'roomCount',
@@ -42,7 +58,7 @@ const STATIC_COLUMNS: GridColDef<Apartment>[] = [
   {
     field: 'height',
     headerName: 'Высота',
-    valueGetter: ({ row }) => row.height,
+    valueGetter: ({ row }) => row.height + ' м',
   },
   {
     field: 'totalPrice',
@@ -58,12 +74,19 @@ const STATIC_COLUMNS: GridColDef<Apartment>[] = [
   },
 ];
 
+type Action = {
+  icon: JSX.Element;
+  name: string;
+  onClick: () => void;
+};
+
 export function ApartmentsPage() {
+  const notify = useNotifications();
+  const modals = useModals();
+
   const {
     callAPI: loadApartments,
-    resetState: resetApartments,
     isPending: apartmentsIsPending,
-    error: apartmensError,
     data: apartmens,
     pageIndex,
     pageSize,
@@ -73,16 +96,23 @@ export function ApartmentsPage() {
     setPageSize,
   } = usePaginatedAPI(ApartmentService.loadApartments, 20);
 
-  const {
-    callAPI: loadViewsInWindow,
-    resetState: resetViews,
-    error: viewsError,
-    data: viewsInWindow,
-  } = useAPI(() => ViewInWindowService.loadViewsInWindow());
+  const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
+  const selectedApartments = useMemo(
+    () =>
+      selectionModel
+        .map((id) => apartmens?.content.find((ap) => ap.id === id))
+        .filter((apartment) => !_.isNil(apartment)) as Apartment[],
+    [selectionModel]
+  );
+
+  const { callAPI: loadViewsInWindow, data: viewsInWindow } = useAPI(() =>
+    ViewInWindowService.loadViewsInWindow()
+  );
 
   useEffect(() => {
-    loadApartments();
-    loadViewsInWindow();
+    Promise.all([loadApartments(), loadViewsInWindow()]).catch((err) =>
+      notify.push(ApiError.fromError(err))
+    );
   }, []);
 
   const dynamicColumns = useMemo(
@@ -99,31 +129,37 @@ export function ApartmentsPage() {
     [viewsInWindow]
   );
 
+  const actions: Action[] = [
+    {
+      icon: <AddIcon />,
+      name: 'Добавить',
+      onClick: () => modals.show(<ApartmentCreateModal />, {}),
+    },
+    selectedApartments.length === 1
+      ? { icon: <EditIcon />, name: 'Редактировать' }
+      : null,
+    selectedApartments.length > 0
+      ? { icon: <DeleteIcon />, name: 'Удалить' }
+      : null,
+  ].filter((action) => !_.isNil(action)) as Action[];
+
   return (
     <AppLayout className="apartments-page" title="Квартиры">
-      <Snackbar
-        open={!!apartmensError}
-        autoHideDuration={6000}
-        onClose={resetApartments}
-      >
-        <Alert
-          onClose={resetApartments}
-          severity="error"
-          sx={{ width: '100%' }}
-        >
-          {apartmensError && apartmensError.message}
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={!!viewsError}
-        autoHideDuration={6000}
-        onClose={resetViews}
-      >
-        <Alert onClose={resetViews} severity="error" sx={{ width: '100%' }}>
-          {viewsError && viewsError.message}
-        </Alert>
-      </Snackbar>
       <Paper className="apartments-page__card">
+        <SpeedDial
+          ariaLabel="Действия"
+          sx={{ position: 'absolute', bottom: 54, right: 42 }}
+          icon={<SpeedDialIcon />}
+        >
+          {actions.map((action, idx) => (
+            <SpeedDialAction
+              key={idx}
+              icon={action.icon}
+              tooltipTitle={action.name}
+              onClick={action.onClick}
+            />
+          ))}
+        </SpeedDial>
         <DataGrid
           localeText={ruRU.components.MuiDataGrid.defaultProps.localeText}
           rows={apartmens?.content || []}
@@ -134,6 +170,7 @@ export function ApartmentsPage() {
           rowCount={apartmens?.total || 0}
           pageSize={pageSize}
           page={pageIndex}
+          selectionModel={selectionModel}
           onSortModelChange={(sort) => setSort(sort)}
           onPageChange={(newPage) => setPageIndex(newPage)}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
@@ -145,9 +182,11 @@ export function ApartmentsPage() {
               ],
             })
           }
+          onSelectionModelChange={(newSelectionModel) =>
+            setSelectionModel(newSelectionModel)
+          }
           loading={apartmentsIsPending}
           checkboxSelection
-          disableSelectionOnClick
         />
       </Paper>
     </AppLayout>

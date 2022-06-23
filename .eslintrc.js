@@ -24,6 +24,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-empty-interface': 'off',
+    'no-unsafe-finally': 'off',
     'import/no-unresolved': 'off',
     'import/order': [
       'error',
