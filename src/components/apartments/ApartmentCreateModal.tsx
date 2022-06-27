@@ -3,31 +3,72 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Typography,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
 } from '@mui/material';
 import * as React from 'react';
 
-export interface IApartmentCreateModalProps {}
+import { ApartmentPayload, CityService } from '@/domain';
 
-export function ApartmentCreateModal(props: IApartmentCreateModalProps) {
+import { useAPI, useForm, useNotifications } from '@/hooks';
+import { ApiError } from '@/lib';
+
+export function ApartmentCreateModal() {
+  const notify = useNotifications();
+  const { data, callAPI: loadCities } = useAPI(CityService.loadCities);
+
+  const { form, setProp, selectProp } = useForm<ApartmentPayload>({
+    cityId: undefined,
+    floor: 0,
+    totalArea: 0,
+    livingArea: 0,
+    kitchenArea: 0,
+    roomCount: 0,
+    height: 0,
+    isStudio: false,
+    totalPrice: 0,
+    viewsInWindowIds: [],
+  });
+
+  React.useEffect(() => {
+    loadCities().catch((err) => notify.push(ApiError.fromError(err)));
+  }, []);
   return (
     <>
       <DialogTitle>Создание</DialogTitle>
       <DialogContent dividers>
-        <Typography gutterBottom>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </Typography>
-        <Typography gutterBottom>
-          Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-          Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-        </Typography>
-        <Typography gutterBottom>
-          Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
-          magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec
-          ullamcorper nulla non metus auctor fringilla.
-        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={8}></Grid>
+          <Grid item xs={4}></Grid>
+          <Grid item xs={4}></Grid>
+          <Grid item xs={8}></Grid>
+        </Grid>
+        <FormControl fullWidth>
+          <InputLabel>Город</InputLabel>
+          <Select<string>
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={form.cityId}
+            label="Age"
+            onChange={selectProp('cityId')}
+          >
+            {data?.content?.map((city, idx) => (
+              <MenuItem value={city.id} key={idx}>
+                {city.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <TextField
+          label="Этаж"
+          value={form.floor}
+          variant="filled"
+          onChange={setProp('floor')}
+        />
       </DialogContent>
       <DialogActions>
         <Button variant="contained" autoFocus>
