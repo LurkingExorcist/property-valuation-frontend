@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { TOKEN } from '@/config';
+import { UserEntity } from '@/domain';
 
-import { User } from '@/domain';
+import { LS_TOKEN } from '@/constants';
 
 type AuthState = {
   token: string | null;
-  user: User | null;
+  user: UserEntity | null;
 };
 
 const INITIAL_STATE: AuthState = {
-  token: localStorage.getItem(TOKEN),
+  token: localStorage.getItem(LS_TOKEN),
   user: null,
 };
 
@@ -23,14 +23,14 @@ export const authSlice = createSlice({
     },
     setToken(state, { payload }: PayloadAction<string | null>) {
       if (payload) {
-        localStorage.setItem(TOKEN, payload);
+        localStorage.setItem(LS_TOKEN, payload);
       } else {
-        localStorage.removeItem(TOKEN);
+        localStorage.removeItem(LS_TOKEN);
       }
 
       state.token = payload;
     },
-    setUser(state, { payload }: PayloadAction<User | null>) {
+    setUser(state, { payload }: PayloadAction<UserEntity | null>) {
       state.user = payload;
     },
   },

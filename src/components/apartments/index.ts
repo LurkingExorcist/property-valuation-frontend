@@ -1,1 +1,1 @@
-export * from './ApartmentsTable';
+export * from './ApartmentImportModal';

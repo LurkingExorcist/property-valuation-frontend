@@ -1,3 +1,3 @@
-export * from './Apartment';
-export * from './ApartmentService';
-export * from './ApartmentPayload';
+export * from './services';
+export * from './types';
+export * from './schemas';

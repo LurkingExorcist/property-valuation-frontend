@@ -1,6 +1,34 @@
 .apartments-page {
+  --controls-height: 64px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   &__card {
-    position: relative;
     flex: auto;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - var(--controls-height));
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  &__controls {
+    height: var(--controls-height);
+    flex: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+  }
+
+  &__table-container {
+    flex: auto;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  &__pagination {
+    flex: none;
   }
 }

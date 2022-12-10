@@ -1,0 +1,35 @@
+.extended-head-cell {
+  &__inner {
+    display: flex;
+    align-items: center;
+  }
+
+  &__filter-btn, &__sort-btn {
+    cursor: pointer;
+    
+    opacity: 0.25;
+
+    &:hover {
+      opacity: 0.75;
+    }
+
+    &--applied {
+      opacity: 1;
+    }
+  }
+
+  &__filter-btn {
+    margin-left: 4px;
+  }
+
+  &__fliter-panel {
+    display: flex;
+    align-items: flex-end;
+    padding: 8px;
+  }
+
+  &__controls {
+    display: flex;
+    margin: 8px;
+  }
+}

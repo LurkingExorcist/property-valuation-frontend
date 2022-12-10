@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { Provider } from 'react-redux';
+import * as Redux from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
-import { AppRouter } from './router';
+import { ModalProvider, NotificationsProvider } from './components';
+import { AppRoutes } from './routes';
 import { store } from './store';
-import { NotificationsWrapper, ModalsWrapper } from './wrappers';
-React.Suspense;
+
 function App() {
   return (
-    <React.StrictMode>
-      <Provider store={store}>
-        <NotificationsWrapper>
-          <ModalsWrapper>
-            <AppRouter />
-          </ModalsWrapper>
-        </NotificationsWrapper>
-      </Provider>
-    </React.StrictMode>
+    <Redux.Provider store={store}>
+      <BrowserRouter>
+        <NotificationsProvider>
+          <ModalProvider>
+            <AppRoutes />
+          </ModalProvider>
+        </NotificationsProvider>
+      </BrowserRouter>
+    </Redux.Provider>
   );
 }
 

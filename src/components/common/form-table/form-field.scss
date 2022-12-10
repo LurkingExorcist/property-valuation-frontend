@@ -1,0 +1,22 @@
+.form-field {
+  $root: &;
+
+  &__label {
+    font-size: 14px;
+    font-weight: normal;
+    padding-right: 12px;
+    text-align: right;
+
+    color: rgba(0,0,0,0.7);
+
+    &:after {
+      content: ':';
+    }
+  }
+
+  &:not(:last-child) {
+    & > #{$root}__label, & > #{$root}__input {
+      padding-bottom: 12px;
+    }
+   }
+}

@@ -8,6 +8,11 @@ import checker from 'vite-plugin-checker';
 import eslint from 'vite-plugin-eslint';
 
 export default vite.defineConfig({
+  define: {
+    process: {
+      env: process.env
+    }
+  },
   plugins: [
     react(),
     html.createHtmlPlugin({

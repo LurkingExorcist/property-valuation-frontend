@@ -1,0 +1,26 @@
+.apartment-import-modal {
+  width: 480px;
+
+  &__field {
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+
+  &__field-label {
+    font-size: 16px;
+    margin-right: 12px;
+  }
+
+  &__file-uploader {
+    display: flex;
+    align-items: center;
+  }
+
+  &__file-uploader-filename {
+    margin-right: 8px;
+  }
+}

@@ -1,3 +1,3 @@
 export * from './apartments';
-export * from './authentication';
+export * from './cities';
 export * from './common';
