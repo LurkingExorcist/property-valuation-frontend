@@ -196,13 +196,6 @@ export function ApartmentsPage() {
             {props.row.viewsInWindow.map((view) => view.description).join('; ')}
           </div>
         ),
-        headCellRenderer: (props) => (
-          <ExtendedHeadCell
-            onChangeSort={onChangeSort}
-            onChangeFilter={onChangeFilter('viewsInWindow')}
-            {...props}
-          />
-        ),
       },
     ],
     []

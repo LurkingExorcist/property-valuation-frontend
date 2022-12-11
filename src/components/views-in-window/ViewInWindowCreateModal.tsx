@@ -44,7 +44,7 @@ export function ViewInWindowCreateModal({ close, onSubmit }: Props) {
 
   return (
     <ModalLayout
-      title="Создать город"
+      title={`Создать "Вид из окна"`}
       controls={
         <FormControls
           isValid={isValid}

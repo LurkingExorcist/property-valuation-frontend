@@ -52,7 +52,7 @@ export function ViewInWindowEditModal({ data, close, onSubmit }: Props) {
   return (
     <ModalLayout
       className="viewInWindow-edit-modal"
-      title="Редактировать город"
+      title={`Редактировать "Вид из окна"`}
       controls={
         <FormControls
           isValid={isValid}

@@ -1,14 +1,14 @@
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 
-import { ViewsInWindowPage } from '@/views/views-in-window/ViewsInWIndowPage';
-
 import { Restricted } from '@/components';
 import { DOMAIN_ENTITY_TYPES, ROUTE_NAMES } from '@/constants';
 import {
   ApartmentsPage,
   AuthenticationPage,
   CitiesPage,
+  ViewsInWindowPage,
   MainPage,
+  UsersPage,
 } from '@/views';
 
 export function AppRoutes() {
@@ -61,6 +61,22 @@ export function AppRoutes() {
               ]}
             >
               <ViewsInWindowPage />
+            </Restricted>
+          }
+        />
+        <Route
+          path={ROUTE_NAMES.USERS}
+          element={
+            <Restricted
+              mock={<Navigate to={ROUTE_NAMES.MAIN} replace={true} />}
+              rules={[
+                {
+                  domainEntity: DOMAIN_ENTITY_TYPES.USER,
+                  accessLevel: 1,
+                },
+              ]}
+            >
+              <UsersPage />
             </Restricted>
           }
         />

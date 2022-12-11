@@ -1,0 +1,8 @@
+.user-edit-modal {
+  width: 480px;
+
+  &__content {
+    max-height: 640px;
+    overflow: auto;
+  }
+}
