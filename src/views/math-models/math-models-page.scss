@@ -1,0 +1,38 @@
+.math-models-page {
+  --controls-height: 64px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__card {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - var(--controls-height));
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  &__controls {
+    height: var(--controls-height);
+    flex: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+  }
+
+  &__table-container {
+    flex: auto;
+    height: 100%;
+    overflow: auto;
+  }
+
+  &__table-body-cell--edit {
+    width: 64px;
+  }
+
+  &__pagination {
+    flex: none;
+  }
+}

@@ -9,6 +9,7 @@ import {
   ViewsInWindowPage,
   MainPage,
   UsersPage,
+  MathModelsPage,
 } from '@/views';
 
 export function AppRoutes() {
@@ -77,6 +78,22 @@ export function AppRoutes() {
               ]}
             >
               <UsersPage />
+            </Restricted>
+          }
+        />
+        <Route
+          path={ROUTE_NAMES.MATH_MODELS}
+          element={
+            <Restricted
+              mock={<Navigate to={ROUTE_NAMES.MAIN} replace={true} />}
+              rules={[
+                {
+                  domainEntity: DOMAIN_ENTITY_TYPES.MATH_MODEL,
+                  accessLevel: 1,
+                },
+              ]}
+            >
+              <MathModelsPage />
             </Restricted>
           }
         />

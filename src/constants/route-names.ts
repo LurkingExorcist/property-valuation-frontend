@@ -7,4 +7,5 @@ export const ROUTE_NAMES = Object.freeze({
   USERS: '/users',
   VIEWS_IN_WINDOW: '/views-in-window',
   MATH_MODELS: '/math-models',
+  DATASETS: '/datasets',
 });
