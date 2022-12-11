@@ -193,9 +193,7 @@ export function ApartmentsPage() {
         prop: 'viewsInWindow',
         bodyCellInnerRenderer: (props) => (
           <div className="apartments-page__views-in-window">
-            {props.row.viewsInWindow
-              .map((view) => `${view.name} (${view.description})`)
-              .join('; ')}
+            {props.row.viewsInWindow.map((view) => view.description).join('; ')}
           </div>
         ),
         headCellRenderer: (props) => (
