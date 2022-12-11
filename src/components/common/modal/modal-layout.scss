@@ -1,7 +1,10 @@
 .modal-layout {
+  display: flex;
+  flex-direction: column;
   padding: 20px;
 
   &__header {
+    flex: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -17,7 +20,13 @@
     cursor: pointer;
   }
 
+  &__content {
+    flex: auto;
+    max-height: 100%;
+  }
+
   &__controls {
+    flex: none;
     display: flex;
     justify-content: space-between;
     

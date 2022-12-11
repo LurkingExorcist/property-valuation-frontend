@@ -1,4 +1,5 @@
-import { Dataset } from './Dataset';
+import { DatasetEntity } from '@/domain/dataset';
+
 import { ModelTypeEntity } from './ModelTypeEntity';
 import { TrainSummary } from './TrainSummary';
 
@@ -7,7 +8,7 @@ export type MathModelEntity = {
   name: string;
   modelType: ModelTypeEntity;
   formula: string;
-  trainDataset: Dataset | null;
+  trainDataset: DatasetEntity | null;
   trainSummary: TrainSummary | null;
   trainedDate: Date | null;
 };

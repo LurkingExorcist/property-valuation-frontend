@@ -10,6 +10,7 @@ import {
   MainPage,
   UsersPage,
   MathModelsPage,
+  DatasetsPage,
 } from '@/views';
 
 export function AppRoutes() {
@@ -94,6 +95,22 @@ export function AppRoutes() {
               ]}
             >
               <MathModelsPage />
+            </Restricted>
+          }
+        />
+        <Route
+          path={ROUTE_NAMES.DATASETS}
+          element={
+            <Restricted
+              mock={<Navigate to={ROUTE_NAMES.MAIN} replace={true} />}
+              rules={[
+                {
+                  domainEntity: DOMAIN_ENTITY_TYPES.DATASET,
+                  accessLevel: 1,
+                },
+              ]}
+            >
+              <DatasetsPage />
             </Restricted>
           }
         />

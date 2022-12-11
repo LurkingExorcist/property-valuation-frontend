@@ -15,7 +15,7 @@ import { ModelTypeSelecter } from './ModelTypeSelecter';
 
 import { ModalLayout, ModalProps, FormControls } from '../common';
 
-import './math-model-create-modal.scss';
+import './math-model-edit-modal.scss';
 
 type Props = ModalProps & {
   data: MathModelEntity;
@@ -59,7 +59,7 @@ export function MathModelEditModal({ data, close, onSubmit }: Props) {
 
   return (
     <ModalLayout
-      className="math-model-create-modal"
+      className="math-model-edit-modal"
       title="Редактировать математическую модель"
       controls={
         <FormControls

@@ -12,6 +12,10 @@ body {
 }
 
 @font-face {
-  font-family: "Mulish";
-  src: url("../fonts/Mulish-VariabsleFont_wght.ttf") format("ttf");
- }
+  font-family: 'Mulish';
+  src: url('../fonts/Mulish-VariabsleFont_wght.ttf') format('ttf');
+}
+
+.MuiPopperUnstyled-root {
+  z-index: 1;
+}
