@@ -7,7 +7,7 @@ export function MainPage() {
     <AppLayout className="main-page" title="Главная страница">
       <InfoMessage
         className="main-page__message"
-        title="Релиз 1.0.1"
+        title="Релиз 1.1.0"
         text={
           <>
             <p>Добавлены информационные сообщения на главном экране</p>
