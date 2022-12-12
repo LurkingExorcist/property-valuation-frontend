@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { ApartmentEntity } from '@/domain';
 
 import { SelectionController, useSelectionColumns } from '@/hooks';
+import { Utils } from '@/lib';
 import { FilterOperation, Path, PropsWithClassName, SortItem } from '@/types';
 
 import { DataTable, DTColumn, ExtendedHeadCell } from '../common';
@@ -147,6 +148,19 @@ export function ApartmentsTable({
           <div className="apartments-page__views-in-window">
             {props.row.viewsInWindow.map((view) => view.description).join('; ')}
           </div>
+        ),
+      },
+      {
+        id: 'totalPrice',
+        label: 'Общая стоимость',
+        prop: 'totalPrice',
+        display: Utils.formatCurrency,
+        headCellRenderer: (props) => (
+          <ExtendedHeadCell
+            onChangeSort={onChangeSort}
+            onChangeFilter={onChangeFilter('totalPrice')}
+            {...props}
+          />
         ),
       },
     ],

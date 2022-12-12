@@ -12,4 +12,8 @@ export class Utils {
         })
       : '';
   }
+
+  static formatPercent(value: number | null | undefined) {
+    return !_.isNil(value) ? `${_.round(value * 100, 2)}%` : '';
+  }
 }

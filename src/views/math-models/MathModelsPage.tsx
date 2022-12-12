@@ -1,6 +1,6 @@
 import './math-models-page.scss';
 
-import { Delete } from '@mui/icons-material';
+import { BatchPrediction, Delete, ModelTraining } from '@mui/icons-material';
 import {
   Button,
   Divider,
@@ -22,6 +22,8 @@ import {
   ExtendedHeadCell,
   EditBodyCellInner,
   MathModelEditModal,
+  MathModelTrainModal,
+  MathModelPredictModal,
 } from '@/components';
 import {
   usePaginatedAPI,
@@ -34,6 +36,9 @@ import {
 
 export function MathModelsPage() {
   const handleError = useErrorHandler();
+
+  const trainModal = useModal(MathModelTrainModal);
+  const predictModal = useModal(MathModelPredictModal);
 
   const createModal = useModal(MathModelCreateModal);
   const editModal = useModal(MathModelEditModal);
@@ -53,6 +58,9 @@ export function MathModelsPage() {
     rows: mathModelsData?.content || [],
     identifier: 'id',
   });
+
+  const openTrainModal = (id: string) => trainModal.show({ id });
+  const openPredictModal = (id: string) => predictModal.show({ id });
 
   const openCreateModal = () => createModal.show({ onSubmit: loadMathModels });
   const openEditModal = (data: MathModelEntity) =>
@@ -115,13 +123,35 @@ export function MathModelsPage() {
       {
         id: 'edit',
         classes: {
-          bodyCell: () => 'math-models-page__table-body-cell--edit',
+          bodyCell: () => 'math-models-page__table-body-cell--control',
         },
         bodyCellInnerRenderer: (props) => (
           <EditBodyCellInner
             onEdit={(props) => openEditModal(props.row)}
             {...props}
           />
+        ),
+      },
+      {
+        id: 'train',
+        classes: {
+          bodyCell: () => 'math-models-page__table-body-cell--control',
+        },
+        bodyCellInnerRenderer: (props) => (
+          <IconButton onClick={() => openTrainModal(props.row.id)}>
+            <ModelTraining fontSize="small" />
+          </IconButton>
+        ),
+      },
+      {
+        id: 'predict',
+        classes: {
+          bodyCell: () => 'math-models-page__table-body-cell--control',
+        },
+        bodyCellInnerRenderer: (props) => (
+          <IconButton onClick={() => openPredictModal(props.row.id)}>
+            <BatchPrediction fontSize="small" />
+          </IconButton>
         ),
       },
     ],
