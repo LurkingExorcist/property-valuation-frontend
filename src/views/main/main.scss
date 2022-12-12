@@ -1,0 +1,15 @@
+.main-page {
+  &__message {
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__message-list {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 24px;
+  }
+}

@@ -10,9 +10,13 @@
   &__group {
     display: flex;
     gap: 12px;
-    
+
     &--main {
       width: 100%;
+    }
+
+    &--profile {
+      cursor: pointer;
     }
   }
 
@@ -26,7 +30,7 @@
   &__divider {
     width: 1px;
     height: 32px;
-    background-color: #DFE0EB;
+    background-color: #dfe0eb;
   }
 
   &__username {

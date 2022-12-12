@@ -8,3 +8,4 @@ export * from './restricted';
 export * from './form-table';
 export * from './form';
 export * from './confirm-modal';
+export * from './info-message';

@@ -1,0 +1,13 @@
+.info-message {
+  padding: 16px;
+
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  &__text {
+    font-size: 16px;
+  }
+}
