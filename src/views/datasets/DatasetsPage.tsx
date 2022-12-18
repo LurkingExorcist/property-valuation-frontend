@@ -117,7 +117,7 @@ export function DatasetsPage() {
   );
 
   return (
-    <AppLayout className="datasets-page" title="Пользователи">
+    <AppLayout className="datasets-page" title="Датасеты">
       <Paper className="datasets-page__card">
         <div className="datasets-page__controls">
           <Button variant="contained" onClick={openCreateModal}>

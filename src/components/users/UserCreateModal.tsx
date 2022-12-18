@@ -47,7 +47,7 @@ export function UserCreateModal({ close, onSubmit }: Props) {
   return (
     <ModalLayout
       className="user-create-modal"
-      title="Создать город"
+      title="Создать пользователя"
       classNames={{
         content: 'user-create-modal__content',
       }}
