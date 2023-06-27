@@ -1,0 +1,30 @@
+.dataset-create-modal {
+  width: 1080px;
+  max-height: 840px;
+
+  &__content {
+    overflow: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__form {
+    flex: none;
+    margin-bottom: 16px;
+  }
+
+  &__table-container {
+    flex: auto;
+    max-height: 100%;
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 16px;
+  }
+
+  &__pagination-container {
+    flex: none;
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -1,4 +1,9 @@
 module.exports = {
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   env: {
     commonjs: true,
     es2021: true,
@@ -8,6 +13,8 @@ module.exports = {
   ignorePatterns: ['.eslintrc.js', 'jest.config.js', 'vite.config.ts'],
   extends: [
     'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
     'plugin:import/recommended',
@@ -19,12 +26,14 @@ module.exports = {
     sourceType: 'module',
     project: 'tsconfig.json',
   },
-  plugins: ['@typescript-eslint', 'import', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'import', 'prettier'],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-empty-interface': 'off',
     'no-unsafe-finally': 'off',
+    'react/prop-types': 'off',
+    'react/display-name': 'off',
     'import/no-unresolved': 'off',
     'import/order': [
       'error',

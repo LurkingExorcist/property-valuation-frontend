@@ -6,18 +6,15 @@ import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { ROUTE_NAMES } from '@/config';
-
 import { UserService } from '@/domain';
 
 import logo from '@/assets/images/logo.svg';
 
-import { useNotifications } from '@/hooks';
-import { useAPI } from '@/hooks/useAPI';
-import { AuthLayout } from '@/layout';
-import { ApiError } from '@/lib';
-import { AppDispatch } from '@/store';
-import { authSlice } from '@/store/slices/auth-slice';
+import { AuthLayout } from '@/components';
+import { ROUTE_NAMES } from '@/constants';
+import { useAPI } from '@/hooks';
+import { useErrorHandler } from '@/hooks/useErrorHandler';
+import { AppDispatch, authSlice } from '@/store';
 
 type Form = {
   username: string;
@@ -25,9 +22,9 @@ type Form = {
 };
 
 export function AuthenticationPage() {
-  const notify = useNotifications();
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const handleError = useErrorHandler();
 
   const [form, setForm] = useState<Form>({
     username: '',
@@ -40,6 +37,7 @@ export function AuthenticationPage() {
     (prop: keyof Form) => (event: React.ChangeEvent<HTMLInputElement>) => {
       setForm({ ...form, [prop]: event.target.value });
     };
+
   const onSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
@@ -50,10 +48,7 @@ export function AuthenticationPage() {
 
       navigate(ROUTE_NAMES.APARTMENTS);
     } catch (err) {
-      const error = ApiError.fromError(err);
-      notify.push({
-        title: error.title,
-      });
+      handleError(err);
     }
   };
 

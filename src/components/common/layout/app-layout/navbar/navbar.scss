@@ -1,0 +1,66 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px 24px;
+  gap: 24px;
+  height: 84px;
+
+  &__group {
+    display: flex;
+    gap: 12px;
+
+    &--main {
+      width: 100%;
+    }
+
+    &--profile {
+      cursor: pointer;
+    }
+  }
+
+  &__page-title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    color: #252733;
+  }
+
+  &__divider {
+    width: 1px;
+    height: 32px;
+    background-color: #dfe0eb;
+  }
+
+  &__username {
+    display: flex;
+    align-items: center;
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  &__profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+  }
+
+  &__profile-circle {
+    position: absolute;
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+  }
+
+  &__profile-icon {
+    position: relative;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+  }
+}
