@@ -1,6 +1,6 @@
 import './auth-page.scss';
 
-import LoadingButton from '@mui/lab/LoadingButton';
+import { LoadingButton } from '@mui/lab';
 import { TextField } from '@mui/material';
 import { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';

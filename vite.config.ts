@@ -12,7 +12,6 @@ export default vite.defineConfig({
     react(),
     html.createHtmlPlugin({
       minify: true,
-      entry: path.resolve(__dirname, 'src/main.ts'),
       inject: {
         data: {
           title: 'Модели оценки стоимости квартир',
